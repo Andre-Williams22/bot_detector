@@ -19,10 +19,14 @@ Bootstrap(app)
 
 # Login Form for login page
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
+    username = StringField('Username', validators=[InputRequired(), Length(min=6, max=15)])
     password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
     remember = BooleanField('Remember Me')
-
+# Signup Form for signup page
+class SignupForm(FlaskForm):
+    email = StringField('email', validators=[InputRequired(), Email(message='Invalid email', Length(min=5, max=50))])
+    username = StringField('Username', validators=[InputRequired(), Length(min=6, max=15)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
 
 
 stripe_keys = {
@@ -39,14 +43,25 @@ def home():
 	return render_template('index.html', key=stripe_keys['publishable_key'])
 
 # User Authentication Information
-@app.route('/login')
+@app.route('/login', methods=['Get', 'POST'])
 def login():
+
     form = LoginForm() #instantiates LoginForm class 
+
+    if form.validate_on_submit(): # checks to see if form has been submitted 
+        return '<h1>' + form.username.data + ' ' + form.password.data + '</h1>' #grabs data from input username and password
+
+
     return render_template('login.html', form=form)
 
 @app.route('/signup')
 def signup():
-    return render_template('signup.html')
+    form = SignupForm()
+
+    if form.validate_on_submit():
+        return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
+
+    return render_template('signup.html', form=form)
 
 @app.route('/dashboard')
 def dashboard():
