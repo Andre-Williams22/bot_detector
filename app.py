@@ -12,10 +12,33 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_url_path='/static')
 app.config['SECRET_KEY'] = 'THISISASECRET'
+# connect database to project folder
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/andre22/Documents/Dev/SPD-1.2/bot-detector/database.db'
 Bootstrap(app)
+db = SQLAlchemy(app) # connects database to app
+
+# creates a class that represents a table in the database for the user table
+class User(db.Model): #name of table in SQL database is "User"
+# Do First: go to terminal and create SQLite db called "database.db". type: sqlite3 database.db
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(15), unique=True)
+    email = db.Column(db.String(50), unique=True)
+    password = db.Column(db.String(80))
+# 1. type in terminal: python 
+# 2. type: from app import db
+# 3. type: db.create_all()
+# 4. type: exit()
+# 5. type: sqlite3 database.db
+# 6. type: .tables (to see what you've created in database)
+
+# SQL Database Commands :
+# select * from user;
+# .tables
+# .exit
 
 # Login Form for login page
 class LoginForm(FlaskForm):
@@ -24,7 +47,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
 # Signup Form for signup page
 class SignupForm(FlaskForm):
-    email = StringField('email', validators=[InputRequired(), Email(message='Invalid email', Length(min=5, max=50))])
+    email = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(min=5, max=50)])
     username = StringField('Username', validators=[InputRequired(), Length(min=6, max=15)])
     password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
 
@@ -59,7 +82,11 @@ def signup():
     form = SignupForm()
 
     if form.validate_on_submit():
-        return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
+        new_user = User(username=form.username.data, email=form.email.data, password=form.password.data)#instantiates a new user from database
+        db.session.add(new_user)
+        db.session.commit()
+        return '<h1> New user has been created! </h1>'
+       # return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
 
     return render_template('signup.html', form=form)
 
