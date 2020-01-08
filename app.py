@@ -8,8 +8,20 @@ import stripe
 from dotenv import load_dotenv
 load_dotenv()
 from twilio.rest import Client
+from flask_bootstrap import Bootstrap
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField
+from wtforms.validators import InputRequired, Email, Length
 
 app = Flask(__name__, static_url_path='/static')
+app.config['SECRET_KEY'] = 'THISISASECRET'
+Bootstrap(app)
+
+# Login Form for login page
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
+    remember = BooleanField('Remember Me')
 
 
 
@@ -26,14 +38,29 @@ stripe.api_key = stripe_keys['secret_key']
 def home():
 	return render_template('index.html', key=stripe_keys['publishable_key'])
 
+# User Authentication Information
+@app.route('/login')
+def login():
+    form = LoginForm() #instantiates LoginForm class 
+    return render_template('login.html', form=form)
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+# Machine learning model
 @app.route('/predict',methods=['POST'])
 def predict():
-	df= pd.read_csv("spam.csv", encoding="latin-1")
+	df= pd.read_csv("bot.csv", encoding="latin-1")
 	df.drop(['Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4'], axis=1, inplace=True)
 	# Features and Labels
 	df['label'] = df['class'].map({'ham': 0, 'spam': 1})
@@ -41,7 +68,7 @@ def predict():
 	y = df['label']
 	
 	# Extract Feature With CountVectorizer
-	cv = CountVectorizer()
+	cv = CountVectorizer() # Count Vectorizer is used to count each word used in an email
 	X = cv.fit_transform(X) # Fit the Data
     # training data
 	from sklearn.model_selection import train_test_split
@@ -49,9 +76,9 @@ def predict():
 	#Naive Bayes Classifier
 	from sklearn.naive_bayes import MultinomialNB
 
-	clf = MultinomialNB()
-	clf.fit(X_train,y_train)
-	clf.score(X_test,y_test)
+	classifier = MultinomialNB()
+	classifier.fit(X_train,y_train)
+	classifier.score(X_test,y_test)
 
 
 	if request.method == 'POST':
