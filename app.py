@@ -1,4 +1,4 @@
-from flask import Flask,render_template,redirect, url_for,request
+from flask import Flask,render_template,redirect, url_for,request, redirect
 import pandas as pd 
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
@@ -8,11 +8,14 @@ import stripe
 from dotenv import load_dotenv
 load_dotenv()
 from twilio.rest import Client
+
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash # for hashing in database
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__, static_url_path='/static')
 app.config['SECRET_KEY'] = 'THISISASECRET'
@@ -20,9 +23,12 @@ app.config['SECRET_KEY'] = 'THISISASECRET'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/andre22/Documents/Dev/SPD-1.2/bot-detector/database.db'
 Bootstrap(app)
 db = SQLAlchemy(app) # connects database to app
+login_manager = LoginManager()
+login_manger.init_app(app)
+login_manager.login_view = 'login'
 
 # creates a class that represents a table in the database for the user table
-class User(db.Model): #name of table in SQL database is "User"
+class User(UserMixin,db.Model): #name of table in SQL database is "User"
 # Do First: go to terminal and create SQLite db called "database.db". type: sqlite3 database.db
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
@@ -38,7 +44,14 @@ class User(db.Model): #name of table in SQL database is "User"
 # SQL Database Commands :
 # select * from user;
 # .tables
+# delete * from user; (deletes data in table)
 # .exit
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
 
 # Login Form for login page
 class LoginForm(FlaskForm):
@@ -66,23 +79,31 @@ def home():
 	return render_template('index.html', key=stripe_keys['publishable_key'])
 
 # User Authentication Information
-@app.route('/login', methods=['Get', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
     form = LoginForm() #instantiates LoginForm class 
 
     if form.validate_on_submit(): # checks to see if form has been submitted 
-        return '<h1>' + form.username.data + ' ' + form.password.data + '</h1>' #grabs data from input username and password
+        user = User.query.filter_by(username=form.username.data).first()# query database for user to see if passwords match
+        if user:
+            if password_word_hash(user.password, password.form.data): # check if passwords match
+                login_user(user, remember=form.remember.data) # logs user in before taking them to dashboard
+                return redirect(url_for('dashboard')) # takes to dashboard & allows them to see account info and use service
+        return '<h1>Invalid Username or Password. Please Try Again</h1>' # passwords do not match, so raise error
+
+        #return '<h1>' + form.username.data + ' ' + form.password.data + '</h1>' #grabs data from input username and password
 
 
     return render_template('login.html', form=form)
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
 
     if form.validate_on_submit():
-        new_user = User(username=form.username.data, email=form.email.data, password=form.password.data)#instantiates a new user from database
+        hashed_password = generate_password_hash(form.password.data, method='sha256') #this generates a hash 80 chars long
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)#instantiates a new user from database
         db.session.add(new_user)
         db.session.commit()
         return '<h1> New user has been created! </h1>'
@@ -91,8 +112,9 @@ def signup():
     return render_template('signup.html', form=form)
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', name=current_user.username)
 
 
 @app.route('/about')
