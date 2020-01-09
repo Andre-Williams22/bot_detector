@@ -24,7 +24,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/andre22/Documents/Dev/
 Bootstrap(app)
 db = SQLAlchemy(app) # connects database to app
 login_manager = LoginManager()
-login_manger.init_app(app)
+login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # creates a class that represents a table in the database for the user table
@@ -44,7 +44,7 @@ class User(UserMixin,db.Model): #name of table in SQL database is "User"
 # SQL Database Commands :
 # select * from user;
 # .tables
-# delete * from user; (deletes data in table)
+# delete from user; (deletes data in table)
 # .exit
 
 @login_manager.user_loader
@@ -87,14 +87,13 @@ def login():
     if form.validate_on_submit(): # checks to see if form has been submitted 
         user = User.query.filter_by(username=form.username.data).first()# query database for user to see if passwords match
         if user:
-            if password_word_hash(user.password, password.form.data): # check if passwords match
+            if check_password_hash(user.password, form.password.data): # check if passwords match in database and form
                 login_user(user, remember=form.remember.data) # logs user in before taking them to dashboard
                 return redirect(url_for('dashboard')) # takes to dashboard & allows them to see account info and use service
+       
         return '<h1>Invalid Username or Password. Please Try Again</h1>' # passwords do not match, so raise error
 
         #return '<h1>' + form.username.data + ' ' + form.password.data + '</h1>' #grabs data from input username and password
-
-
     return render_template('login.html', form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -115,6 +114,14 @@ def signup():
 @login_required
 def dashboard():
     return render_template('dashboard.html', name=current_user.username)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user() # logs user out 
+    return redirect(url_for('index'))
+
+
 
 
 @app.route('/about')
