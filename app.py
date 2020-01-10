@@ -14,6 +14,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy import SQLAlchemy
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 from werkzeug.security import generate_password_hash, check_password_hash # web security that hashes database for login credentials 
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
