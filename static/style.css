@@ -46,7 +46,13 @@ html, body{
 
 .btn-primary:hover {
   background-color: #563d7c;
-  border: 1px solid #563d7c;
+  border: 30px solid #563d7c;
+}
+
+.btn-huge{
+  padding-top:50px;
+  padding-bottom:200px;
+  font-size: 50px;
 }
 .jumbotron {
   padding: 1rem;

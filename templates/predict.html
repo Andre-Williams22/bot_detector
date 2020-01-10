@@ -1,46 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Innovating in Old Age Industries</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-	<link rel='stylesheet' href='https://bootswatch.com/4/slate/bootstrap.min.css'>
-	
-</head>
-<body>
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
-<div class="container-fluid">
-	 <a class="navbar-brand" href="#"><!--<img src="../static/img/pathscan.png" style="width:400px;height:150px;">--></a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarResponsive">
-		<ul class="navbar-nav ml-auto">
-			<li class="nav-item-active">
-				<a class="nav-link" href="/">Home</a>
-			</li>
-			
-			<li class="nav-item">
-				<a class="nav-link" href="/about">About</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">Team</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="/">Connect</a>
-			</li> 
-		</ul>
-	</div>
-</div>
-</nav>
-		<center> <u> <h2>World Class Spam Detector</h2></u> </center>
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
+{% endblock %}
+
+{% block content %}
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ url_for('home')}}">Bot Detector</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="{{ url_for('home') }}"> Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+		<center> <u> <h2>World Class Bot Detector</h2></u> </center>
 		
 	</div>
 	</header>
@@ -60,5 +50,7 @@
 	{% endif %}
 
 	</center>
+
+{% endblock %}
 </body>
 </html>

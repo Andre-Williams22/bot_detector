@@ -58,7 +58,7 @@
 				<h1 class="display-2">Bot Detector</h1>
 				<h3> Keeping You Informed </h3>
 				<a class="btn btn-primary btn-lg" href="#stripe_button">Buy Now</a>
-				<a class="btn btn-primary btn-lg" href="#stripe_button">Get Started</a>
+				<a class="btn btn-primary btn-lg" href="{{ url_for('signup') }}">Get Started</a>
 			</div>
 		</div>
 
@@ -93,14 +93,15 @@
 
 			</div>
 		</div>
-	</div>
-
+{% block stripebutton %}
 	<!--- Welcome Section -->
+
 	<div class="container-fluid padding">
 		<div class="row welcome text-center">
 			<div class="col-12">
 				<h1 class="display-4"> Built with ease.</h1>
 			</div>
+
 			<hr>
 			<div class="col-12">
 				<p class="lead"> Welcome to the Bot Detector's website </p>
@@ -127,7 +128,14 @@
 					<p> Feedback in a matter of seconds on the diagnosis </p>
 			</div>
 		</div>
-		<hr class="my-4">
+		
+		<center>
+		<form class="signin" method="POST" action="/signup">
+			<a class="btn btn-success btn-lg btn-block btn-huge" href="{{ url_for('signup') }}">Signup For Free</a>	
+		</form>
+	</center>
+	<hr class="my-4">
+		
 	</div>
 
 	<!--- Two Column Section -->
@@ -141,8 +149,9 @@
 				<li> You should be able to believe it! </li>
 				<br>
 				
-				<a href="/about" class="btn btn-primary">Learn More</a>
-				</center>
+				<a href="{{ url_for('signup') }}" class="btn btn-primary">Learn More</a>
+			</center>
+
 			</div>
 			<div class="col-lg-6">
 				<img src="../static/img/desk.png" class="img-fluid">
@@ -151,6 +160,13 @@
 	</div>
 
 	<hr class="my-4">
+				<center>
+					<form class="signin" method="POST" action="/signup">
+						
+							<a class="btn btn-success btn-lg btn-block btn-huge" href="{{ url_for('signup') }}">Signup For Free</a>	
+						
+					</form>
+			</center>
 	<!--- Fixed background -->
 	<figure> 
 		<div class="fixed-wrap">
@@ -230,15 +246,18 @@
 	</div>
 	<hr class="my-4">
 
+	<!-- Signup -->
+<center>
+	<form class="signin" method="POST" action="/signup">
 
-	<!-- The Product -->
+		<div class="col-md-3">
+			<a class="btn btn-success btn-lg btn-block btn-huge" href="{{ url_for('signup') }}">Signup For Free</a>	
 
-	{% block content %}
-
-
-	{% endblock %}
-
-
+	</div>
+	</form>
+</center>
+<br>
+<br>
 	<!--- Connect -->
 	<div class"container-fluid padding">
 		<div class="row text-center padding">
@@ -254,7 +273,6 @@
 		</div>
 	</div>
 
-
 	<!--- Footer -->
 	<footer><center>
 			<h5> Our Information </h5>
@@ -265,24 +283,9 @@
 			<p>City, State, 00000</p>
 	</center>
 	</footer>
+
+{% endblock %}
+<br>
+<br>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

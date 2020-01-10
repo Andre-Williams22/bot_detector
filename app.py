@@ -14,7 +14,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash # for hashing in database
+from werkzeug.security import generate_password_hash, check_password_hash # web security that hashes database for login credentials 
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__, static_url_path='/static')
@@ -102,7 +102,7 @@ def signup():
 
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='sha256') #this generates a hash 80 chars long
-        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)#instantiates a new user from database
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password) #instantiates a new user from database
         db.session.add(new_user)
         db.session.commit()
         return '<h1> New user has been created! </h1>'
@@ -122,7 +122,17 @@ def logout():
     return redirect(url_for('index'))
 
 
+@app.route('/payment', methods=['GET', 'POST'])
+def payment():
+    form = SignupForm()
 
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data, method='sha256') #this generates a hash 80 chars long
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password) #instantiates a new user from database
+        db.session.add(new_user)
+        db.session.commit()
+        
+    return render_template('payment.html', form=form)
 
 @app.route('/about')
 def about():
@@ -130,6 +140,7 @@ def about():
 
 # Machine learning model
 @app.route('/predict',methods=['POST'])
+@login_required
 def predict():
 	df= pd.read_csv("bot.csv", encoding="latin-1")
 	df.drop(['Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4'], axis=1, inplace=True)
@@ -156,7 +167,7 @@ def predict():
 		message = request.form['message']
 		data = [message]
 		vect = cv.transform(data).toarray()
-		my_prediction = clf.predict(vect)
+		my_prediction = classifier.predict(vect)
 	return render_template('predict.html', prediction = my_prediction)
 
 @app.route('/charge', methods=['POST'])

@@ -1,16 +1,13 @@
-{% extends "bootstrap/base.html" %}
+{% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
-
-{% block title %}
-
-{% endblock %}
 
 {% block styles %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
 {% endblock %}
 
-{% block content %}
+
+
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -43,7 +40,26 @@
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
+<body>
+{% block stripebutton %}
+<center>
+<br>
+<h3> Click Pay With Card to Purchase the Product </h3>
+<br>
+<br>
 
-    </div> <!-- /container -->
-    </body>
+    <form id="stripe_button" action="/charge" method="post">
+        <script
+            src="https://checkout.stripe.com/checkout.js"
+            class="stripe-button"
+            data-key="{{ key }}"
+            data-description="A Flask Charge"
+            data-amount="500"
+            data-locale="auto">
+        </script>
+    </form>
+<br>
+<h3> Never Get Tricked by a Bot again by a one time purchase!</h3>
+</center>
+</body>
 {% endblock %}
