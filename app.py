@@ -204,7 +204,7 @@ def show_message():
     ''' Shows the charge amount'''
     amounts=1000
 
-    return render_template('charge.html', amounts=amounts)
+    return render_template('charge.html', amounts=amounts, name=current_user.username)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=80, debug=True)
