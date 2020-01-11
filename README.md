@@ -60,7 +60,7 @@ You should see something similar to the output below:
 * [Jinja](https://palletsprojects.com/p/jinja/) - Template engine for python
 * [Stripe API](https://tenor.com/gifapi) - API for payments 
 * [Bootstrap](https://getbootstrap.com/) - For styling
-* [SQLAlchemy](https://docs.sqlalchemy.org/en/13/dialects/sqlite.html) - Database for user registration
+* [SQLAlchemy](https://docs.sqlalchemy.org/en/13/dialects/sqlite.html) - Database for user registration and message data
 
 ## Acknowledgments
 
