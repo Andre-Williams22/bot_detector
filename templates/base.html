@@ -57,7 +57,7 @@
 			<div class="carousel-caption">
 				<h1 class="display-2">Bot Detector</h1>
 				<h3> Keeping You Informed </h3>
-				<a class="btn btn-primary btn-lg" href="#stripe_button">Buy Now</a>
+				<a class="btn btn-primary btn-lg" href="{{ url_for('signup') }}">Buy Now</a>
 				<a class="btn btn-primary btn-lg" href="{{ url_for('signup') }}">Get Started</a>
 			</div>
 		</div>
@@ -66,8 +66,8 @@
 				<div class="carousel-caption">
 					<h1 class="display-2">Bot Detector</h1>
 					<h3> Keeping You Informed </h3>
-					<a class="btn btn-primary btn-lg" href="#stripe_button">Buy Now</a>
-					<a class="btn btn-primary btn-lg" href="#stripe_button">Get Started</a>
+					<a class="btn btn-primary btn-lg" href="{{ url_for('signup') }}">Buy Now</a>
+					<a class="btn btn-primary btn-lg" href="{{ url_for('signup') }}">Get Started</a>
 				</div>			
 		</div>
 
@@ -75,8 +75,8 @@
 				<div class="carousel-caption">
 					<h1 class="display-2">Bot Detector</h1>
 					<h3> Keeping You Informed </h3>
-					<a class="btn btn-primary btn-lg" href="#stipe_button">Buy Now</a>
-					<a class="btn btn-primary btn-lg" href="#stripe_button">Get Started</a>
+					<a class="btn btn-primary btn-lg" href="{{ url_for('signup') }}">Buy Now</a>
+					<a class="btn btn-primary btn-lg" href="{{ url_for('signup') }}">Get Started</a>
 				</div>
 			</div>
 		</div>
@@ -129,9 +129,9 @@
 			</div>
 		</div>
 		
-		<center>
+	<center>
 		<form class="signin" method="POST" action="/signup">
-			<a class="btn btn-success btn-lg btn-block btn-huge" href="{{ url_for('signup') }}">Signup For Free</a>	
+			<a class="btn btn-success btn-lg btn-block" href="{{ url_for('signup') }}">Signup For Free</a>	
 		</form>
 	</center>
 	<hr class="my-4">
@@ -163,8 +163,7 @@
 				<center>
 					<form class="signin" method="POST" action="/signup">
 						
-							<a class="btn btn-success btn-lg btn-block btn-huge" href="{{ url_for('signup') }}">Signup For Free</a>	
-						
+							<a class="btn btn-success btn-lg btn-block" href="{{ url_for('signup') }}">Signup For Free</a>	
 					</form>
 			</center>
 	<!--- Fixed background -->
@@ -249,10 +248,10 @@
 	<!-- Signup -->
 <center>
 	<form class="signin" method="POST" action="/signup">
-
-		<div class="col-md-3">
-			<a class="btn btn-success btn-lg btn-block btn-huge" href="{{ url_for('signup') }}">Signup For Free</a>	
-
+ 	<div class="row">
+		<div class="col-md-12">
+			<a class="btn btn-success btn-lg btn-block" href="{{ url_for('signup') }}">Signup For Free</a>	
+		</div>
 	</div>
 	</form>
 </center>
@@ -273,18 +272,21 @@
 		</div>
 	</div>
 
+
+{% endblock %}
 	<!--- Footer -->
-	<footer><center>
+		<hr class="my-4">
+	<footer class="footer">
+		<center id="footer-center">
 			<h5> Our Information </h5>
 			<hr class="light"> 
 			<p>555-555-5555</p>
 			<p>email@bootstrap.com</p>
 			<p>100 Street Name</p>
 			<p>City, State, 00000</p>
-	</center>
+		</center>
 	</footer>
 
-{% endblock %}
 <br>
 <br>
 </body>

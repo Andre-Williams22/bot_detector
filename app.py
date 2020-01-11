@@ -22,6 +22,7 @@ app = Flask(__name__, static_url_path='/static')
 app.config['SECRET_KEY'] = 'THISISASECRET'
 # connect database to project folder
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/andre22/Documents/Dev/SPD-1.2/bot-detector/database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 Bootstrap(app)
 db = SQLAlchemy(app) # connects database to app
 login_manager = LoginManager()
@@ -67,8 +68,8 @@ class SignupForm(FlaskForm):
 
 
 stripe_keys = {
-  'secret_key': 'sk_test_S1UKtrSKbTVMv7YzQpch6RBc007RPTTUgW',
-  'publishable_key': 'pk_test_LqQaKSR0V30253rAvgA8Bcd300FMsyQ5d2'
+  'secret_key': 'sk_test_8xdHGXFzRls1cnqCAGAKU7qR004iPCi3qd',
+  'publishable_key': 'pk_test_FBfglBDbfjv103hobURAe1ji00L58GEGQE'
 }
 
 
@@ -77,7 +78,7 @@ stripe.api_key = stripe_keys['secret_key']
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-	return render_template('index.html', key=stripe_keys['publishable_key'])
+	return render_template('index.html')
 
 # User Authentication Information
 @app.route('/login', methods=['GET', 'POST'])
@@ -133,7 +134,7 @@ def payment():
         db.session.add(new_user)
         db.session.commit()
         
-    return render_template('payment.html', form=form)
+    return render_template('payment.html', form=form, key=stripe_keys['publishable_key'])
 
 @app.route('/about')
 def about():
@@ -169,7 +170,7 @@ def predict():
 		data = [message]
 		vect = cv.transform(data).toarray()
 		my_prediction = classifier.predict(vect)
-	return render_template('predict.html', prediction = my_prediction)
+	return render_template('predict.html', prediction = my_prediction, key=stripe_keys['publishable_key'])
 
 @app.route('/charge', methods=['POST'])
 def charge():
@@ -205,7 +206,7 @@ def show_message():
     ''' Shows the charge amount'''
     amounts=1000
 
-    return render_template('charge.html', amounts=amounts, name=current_user.username)
+    return render_template('charge.html', amounts=amounts, name=current_user.username, key=stripe_keys['publishable_key'])
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=80, debug=True)

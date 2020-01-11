@@ -44,15 +44,11 @@ html, body{
   padding-bottom: 1rem;
 }
 
-.btn-primary:hover {
-  background-color: #563d7c;
-  border: 30px solid #563d7c;
-}
 
-.btn-huge{
-  padding-top:50px;
-  padding-bottom:200px;
-  font-size: 50px;
+
+.btn-primary:hover {
+  background-color: black;
+  border: 1px solid black;
 }
 .jumbotron {
   padding: 1rem;
@@ -74,6 +70,10 @@ html, body{
 }
 .fa-code {
   color: #e54d26;
+}
+#page-container {
+  position: relative;
+  min-height: 100vh;
 }
 
 .fa-bold {
@@ -124,11 +124,15 @@ html, body{
 .fa-youtube:hover {
   color: #d5d5d5
 }
-footer{
-  background-color: #3f3f3f;
-  color: #d5d5d5;
-  padding-top: 2rem;
-}
+.footer {
+  color: black;
+  position: relative;
+  height: 100px;
+  margin-bottom: 10px;
+  width: 100%;           /* Footer height */
+  }
+
+
 hr.light {
   border-top: 1px solid #d5d5d5;
   width: 75%;
@@ -136,7 +140,7 @@ hr.light {
   margin-bottom: 1rem;
 }
 
-footer a {
+.footer a {
   color: #d5d5d5;
 }
 hr.light-100{
@@ -246,6 +250,10 @@ figure {
     padding: 1rem;
 }
 
+
+#footer-center {
+  height: 20px;
+}
 
 
 
