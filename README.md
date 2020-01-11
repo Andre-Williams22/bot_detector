@@ -1,6 +1,19 @@
-# Bot Detector
+<h1 align="center">Bot Detector</h1>
+<p>
+  <a href="https://github.com/Andre-Williams22/bot_detector/blob/master/README.md" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/Andre-Williams22/bot_detector/graphs/traffic" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://www.linkedin.com/in/andrewilliams22/" target="_blank">
+    <img alt="LinkedIn: andrewilliams22" src="https://www.linkedin.com/in/andrewilliams22/" />
+  </a>
+</p>
 
-![Gif Site](static/img/bot-screen.png)
+
+
+![Bot Site](static/img/bot-screen.png)
 
 ## Authors
 
