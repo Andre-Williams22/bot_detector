@@ -6,9 +6,6 @@
   <a href="https://github.com/Andre-Williams22/bot_detector/graphs/traffic" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://www.linkedin.com/in/andrewilliams22/" target="_blank">
-    <img alt="LinkedIn: andrewilliams22" src="https://www.linkedin.com/in/andrewilliams22/" />
-  </a>
 </p>
 
 
@@ -18,6 +15,8 @@
 ## Authors
 
 * Andre Williams 
+* Github: [@Andre-Williams22](https:/Andre-Williams22/)
+* LinkedIn: [@andrewilliams22](https://www.linkedin.com/in/andrewilliams22/)
 
 ## Purpose
 
@@ -76,7 +75,11 @@ You should see something similar to the output below:
 * [SQLAlchemy](https://docs.sqlalchemy.org/en/13/dialects/sqlite.html) - Database for user registration and message data
 * [Flask_Bootstrap](https://pythonhosted.org/Flask-Bootstrap/) - Used for styling on multiple pages
 
-## Acknowledgments
+## 📝 License
+
+Copyright © 2020 [Andre Williams](https://github.com/Andre-Williams22).<br />
+This project is [MIT](https://github.com/Andre-Williams22/blob/master/LICENSE) licensed.
+
 
 
 
