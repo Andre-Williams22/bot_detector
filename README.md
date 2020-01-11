@@ -1,6 +1,6 @@
 # Gif Search
 
-![Gif Site](https://i.imgur.com/eXxSJXg.png)
+![Gif Site](static/img/bot-screen.png)
 
 ## Authors
 
