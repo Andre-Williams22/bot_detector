@@ -1,10 +1,15 @@
-# Gif Search
+# Bot Detector
 
 ![Gif Site](static/img/bot-screen.png)
 
 ## Authors
 
-* **Andre Williams 
+* Andre Williams 
+
+## Purpose
+
+The Bot Detector uses machine learning to identify if a DM or email on a social media platform is from a human or bot scraping the internet. The Bot Detector saves users from interacting with bots rather than humans. Once the user pays for the service they will have unlimited access to the bot detector and can essentially copy and paste the messages they want detected onto the platform.
+
 
 ## Getting Started
 
@@ -22,7 +27,6 @@ pip3 install requests
 pip3 install sqlalchemy
 pip3 install stripe
 pip3 install flask_login
-
 ```
 
 ### Installing
@@ -55,8 +59,8 @@ You should see something similar to the output below:
 * [Flask](https://palletsprojects.com/p/flask/) - Lightweight web application framework
 * [Jinja](https://palletsprojects.com/p/jinja/) - Template engine for python
 * [Stripe API](https://tenor.com/gifapi) - API for payments 
-* [Bootstrap] (https://getbootstrap.com/) - For styling
-* [SQLAlchemy] (https://docs.sqlalchemy.org/en/13/dialects/sqlite.html) - Database for user registration
+* [Bootstrap](https://getbootstrap.com/) - For styling
+* [SQLAlchemy](https://docs.sqlalchemy.org/en/13/dialects/sqlite.html) - Database for user registration
 
 ## Acknowledgments
 
