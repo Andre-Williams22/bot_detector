@@ -61,6 +61,7 @@ You should see something similar to the output below:
 * [Stripe API](https://tenor.com/gifapi) - API for payments 
 * [Bootstrap](https://getbootstrap.com/) - For styling
 * [SQLAlchemy](https://docs.sqlalchemy.org/en/13/dialects/sqlite.html) - Database for user registration and message data
+* [Flask_Bootstrap](https://pythonhosted.org/Flask-Bootstrap/) - Used for styling on multiple pages
 
 ## Acknowledgments
 
