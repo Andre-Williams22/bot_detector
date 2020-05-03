@@ -11,6 +11,8 @@ from twilio.rest import Client
 
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
+from werkzeug.urls import url_encode
+from urllib.parse import urlencode
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy import SQLAlchemy
