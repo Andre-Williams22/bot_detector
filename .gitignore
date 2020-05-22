@@ -1,3 +1,5 @@
 flask.pem
 database.db
 venv/
+.DS_Store
+DS_Store

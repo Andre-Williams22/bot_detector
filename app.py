@@ -184,8 +184,8 @@ def charge():
     #         from_='+12162086503',
     #         to='2142846514')
     # print(message.sid)
-
     # amount in cents
+    
     amount = 1000
 
     customer = stripe.Customer.create(
