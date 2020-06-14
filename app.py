@@ -1,4 +1,4 @@
-from flask import Flask,render_template,redirect, url_for,request, redirect
+from flask import Flask,render_template,redirect, url_for,request
 import pandas as pd 
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
@@ -8,7 +8,6 @@ import stripe
 from dotenv import load_dotenv
 load_dotenv()
 from twilio.rest import Client
-
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from werkzeug.urls import url_encode
